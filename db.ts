@@ -1,18 +1,14 @@
-import { Dialect, Sequelize } from 'sequelize'
+import { Sequelize } from 'sequelize'
 
+const username = process.env.USERNAME as string;
+const password = process.env.PASSWORD as string;
+const host = process.env.HOST as string;
+const dbname = process.env.DBNAME as string;
 
-//const dbName = process.env.DB_NAME as string;
-//const dbUser = process.env.DB_USER as string;
-//const dbHost = process.env.DB_HOST as string;
-//const dbPassword = process.env.DB_PASSWORD as string;
-
-export const sequelize = new Sequelize("testdb", "root", "Zzzhbr1111", {
-  host: "localhost",
+export const sequelize = new Sequelize(dbname, username, password, {
+  host: host,
   dialect: "mysql",
   port: 3306,
-  dialectOptions: {
-    socketPath: "/var/run/mysqld/mysqld.sock"
-  },
   define: {
       paranoid: true
   },

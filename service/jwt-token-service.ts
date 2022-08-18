@@ -10,8 +10,8 @@ export interface JWTTokens{
 
 export class TokenService{
     static generateTokens(payload: UserDtoInterface): JWTTokens{
-        const accessToken = jwt.sign(payload, "process.env.JWT_ACCESS_SECRET", {expiresIn: "15m"});
-        const refreshToken = jwt.sign(payload, "process.env.JWT_REFRESH_SECRET", {expiresIn: "30d"});
+        const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET as string, {expiresIn: "15m"});
+        const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {expiresIn: "30d"});
 
         return {
             accessToken, refreshToken
@@ -44,7 +44,7 @@ export class TokenService{
 
     static validateAccessToken(token: string): UserDtoInterface | null{
         try {
-            const userData = jwt.verify(token, "process.env.JWT_ACCESS_SECRET") as UserDtoInterface;//process.env.JWT_ACCESS_SECRET);
+            const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string) as UserDtoInterface;//process.env.JWT_ACCESS_SECRET);
             
             return userData;
         } catch (e) {
@@ -54,7 +54,7 @@ export class TokenService{
 
     static validateRefreshToken(token: string): UserDtoInterface | null{
         try {
-            const userData = jwt.verify(token, "process.env.JWT_REFRESH_SECRET") as UserDtoInterface;//process.env.JWT_REFRESH_SECRET);
+            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET as string) as UserDtoInterface;//process.env.JWT_REFRESH_SECRET);
             
             return userData;
         } catch (e) {
